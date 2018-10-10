@@ -7,7 +7,6 @@
 </head>
 <body>
 
-<h2 th:text="'Zalogowany użytkownik to: '+ ${user.login + user.firstName + user.lastName}"></h2>
 
 <div class="alert alert-primary" role="alert">
     Aby się zarejestrować <a href="/rejestracja" class="alert-link">kliknij tutaj</a>.
@@ -16,7 +15,7 @@
     Aby się zalogować <a href="/logowanie" class="alert-link">kliknij tutaj</a>.
 </div>
 <div class="alert alert-warning" role="alert">
-    Aby edytować swoje konto <a th:href="'/edytujUzytkownika?id=' + ${user.id}" class="allert-link">kliknij tutaj</a>
+    Aby edytować swoje konto <a href="/ustawienia" class="allert-link">kliknij tutaj</a>
 </div>
 </body>
 </html>

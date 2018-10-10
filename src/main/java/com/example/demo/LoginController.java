@@ -26,10 +26,7 @@ public class LoginController {
 
 
     @GetMapping("/")
-    public String home(Principal principal, Model model) {
-        String login = principal.getName();
-        User user = userRepository.findByLogin(login);
-        model.addAttribute("user", user);
+    public String home() {
         return "home";
     }
 
@@ -44,18 +41,19 @@ public class LoginController {
         if (byId.isPresent()) {
             User user = byId.get();
             UserDto userDto = new UserDto();
+            userDto.setUserId(user.getId());
             userDto.setLogin(user.getLogin());
             userDto.setPassword(user.getPassword());
             userDto.setFirstName(user.getFirstName());
             userDto.setLastName(user.getLastName());
             model.addAttribute("userDto", userDto);
-            return "edytujUzytkownika";
+            return "edytuj";
         } else {
             return "redirect:/";
         }
     }
 
-    @PostMapping("/edytujUzytkownika")
+    @PostMapping("/edytuj")
     public String edytuj(UserDto userDto) {
         Long userId = userDto.getUserId();
         Optional<User> byId = userRepository.findById(userId);
@@ -70,4 +68,12 @@ public class LoginController {
         return "redirect:/logowanie";
     }
 
+    @GetMapping("/ustawienia")
+    public String ustawienia(Principal principal, Model model) {
+        String username = principal.getName();
+        User user = userRepository.findByLogin(username);
+        model.addAttribute("user", user);
+        return "ustawienia";
+
+    }
 }
