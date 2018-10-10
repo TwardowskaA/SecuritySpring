@@ -7,6 +7,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.security.Principal;
 import java.util.Optional;
 
 @Controller
@@ -24,7 +26,10 @@ public class LoginController {
 
 
     @GetMapping("/")
-    public String home() {
+    public String home(Principal principal, Model model) {
+        String login = principal.getName();
+        User user = userRepository.findByLogin(login);
+        model.addAttribute("user", user);
         return "home";
     }
 
